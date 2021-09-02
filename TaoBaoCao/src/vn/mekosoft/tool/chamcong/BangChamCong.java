@@ -40,6 +40,7 @@ public class BangChamCong {
 					if (!folderKhuVuc.exists()){
 						folderKhuVuc.mkdirs();
 					}
+					//Tao 12 bangcham cong 
 					taoBangLuong(danhSachNhanVien,folderKhuVuc.getAbsolutePath());
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
