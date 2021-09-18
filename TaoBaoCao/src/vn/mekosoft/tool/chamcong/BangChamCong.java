@@ -19,11 +19,16 @@ import ctu.edu.vn.excel.export.Excel;
 import ctu.edu.vn.excel.export.ExportExcel;
 
 public class BangChamCong {
-	static String templatePath = "/Users/admin/eclipse-workspace-2/TaoBaoCao/template/chamcong.xlsx";
-	static String outputPath = "/Users/admin/eclipse-workspace-2/TaoBaoCao/output/nhansu";
-	static String inputPath = "/Users/admin/eclipse-workspace-2/TaoBaoCao/input/nhansu";
+	static String projectPath = "/Users/admin/git/repository/TaoBaoCao";
+	static String templatePath = projectPath+"/template/chamcong.xlsx";
+	static String outputPath = projectPath+"/output/nhansu";
+	static String inputPath = projectPath+"/input/nhansu";
 	public static void main(String[] args) {
+		System.out.println("Start processing input path="+inputPath);
 		List<String> khuVucFolders = listFolder(inputPath);
+		for(String folder : khuVucFolders) {
+			System.out.println("input="+folder);
+		}
 		for(String folder : khuVucFolders) {
 			//Tao thu muc cho tung Khu vuc
 			String folderPath = outputPath+"/"+folder;
@@ -139,16 +144,25 @@ public class BangChamCong {
 	}
 	public static List<String> listFolder(String path) {
 		File file = new File(path);
-		String[] directories = file.list(new FilenameFilter() {
-		  @Override
-		  public boolean accept(File current, String name) {
-		    return new File(current, name).isDirectory();
-		  }
-		});
 		List<String> folders = new ArrayList<String>();
-		for(String folder : directories) {
-			folders.add(folder);
+		if(file.exists()) {
+			System.out.println("file list="+file.list());
+			String[] directories = file.list(new FilenameFilter() {
+				  @Override
+				  public boolean accept(File current, String name) {
+				    return new File(current, name).isDirectory();
+				  }
+				});
+				
+				 if(directories!=null) {
+						for(String folder : directories) {
+							folders.add(folder);
+						}
+				 }
+		}else {
+			System.out.println("File "+path+" not found");
 		}
+		
 		return folders;
 	}
 	public static List<File> listFile(String folderPath) {
